@@ -1,4 +1,4 @@
-iimport streamlit as st
+import streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
 # إعداد الاتصال بجوجل شيت
