@@ -16,19 +16,6 @@ if st.button('تحديث البيانات الآن 🔄'):
 # إعدادات الصفحة
 st.set_page_config(page_title="نظام تحليل النتائج الذكي", layout="wide")
 
-st.title("📊 نظام عرض وتحليل نتائج الطلاب بالذكاء الاصطناعي")
-st.markdown("قم برفع ملف Excel يحتوي على درجات الطلاب للحصول على التحليل فوراً")
-
-# 1. رفع الملف
-uploaded_file = st.sidebar.file_uploader("اختر ملف Excel", type=["xlsx", "csv"])
-
-if uploaded_file:
-    # قراءة البيانات
-    if uploaded_file.name.endswith('.csv'):
-        df = pd.read_csv(uploaded_file)
-    else:
-        df = pd.read_excel(uploaded_file)
-
     # حساب المجموع والنسبة (تلقائياً)
     subject_cols = df.select_dtypes(include=['number']).columns.drop(['رقم_الجلوس'], errors='ignore')
     df['المجموع'] = df[subject_cols].sum(axis=1)
