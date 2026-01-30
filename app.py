@@ -7,7 +7,6 @@ import io
 st.set_page_config(page_title="نظام النتائج الذكي 2026", layout="wide")
 
 # تخصيص المظهر بالعربي
-st.markdown("""
     <style>
     .main { text-align: right; }
     div.stButton > button:first-child { background-color: #007bff; color: white; }
