@@ -18,7 +18,7 @@ st.set_page_config(page_title="نظام تحليل النتائج الذكي", l
 
     # حساب المجموع والنسبة (تلقائياً)
     # --- القسم الأول: البحث برقم الجلوس ---
-    st.header("🔍 البحث عن نتيجة طالب")
+  #  st.header("🔍 البحث عن نتيجة طالب")
     search_id = st.number_input("أدخل رقم الجلوس", min_value=0, step=1)
     
     if search_id in df['رقم_الجلوس'].values:
