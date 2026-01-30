@@ -2,7 +2,7 @@ iimport streamlit as st
 from streamlit_gsheets import GSheetsConnection
 
 # إعداد الاتصال بجوجل شيت
-url = "رابط_ملف_جوجل_شيت_الخاص_بك_هنا"
+url = "https://docs.google.com/spreadsheets/d/1VYDWk4rU71gX85j6KYHhvhRjCLEb4OOMc16Rm2cw4mc/edit?usp=sharing"
 
 conn = st.connection("gsheets", type=GSheetsConnection)
 
