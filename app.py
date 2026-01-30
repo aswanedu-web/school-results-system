@@ -89,5 +89,6 @@ def create_certificate(student_name, score, rank):
     pdf.cell(0, 20, text, ln=True, align='C')
     # تحويل الـ PDF إلى Bytes ليتسنى تحميله
     return pdf.output(dest='S').encode('latin-1')
+    
   else:
     st.warning("بانتظار رفع ملف البيانات لبدء التحليل...")
