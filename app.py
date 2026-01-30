@@ -96,7 +96,7 @@ def create_certificate(student_name, score, rank):
 
 # --- داخل جزء عرض الأوائل في Streamlit ---
 st.subheader("🖨️ طباعة شهادات المتفوقين")
-selected_student = st.selectbox("اختر طالب لإصدار شهادته", top_students['الاسم']
+selected_student = st.selectbox("اختر طالب لإصدار شهادته", top_students['الاسم'])
 if selected_student:
     row = top_students[top_students['الاسم'] == selected_student].iloc[0]
     rank = top_students.index.get_loc(row.name) + 1
