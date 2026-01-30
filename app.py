@@ -69,26 +69,6 @@ if uploaded_file:
         st.subheader("تحليل ذكي:")
         st.info(f"المدرسة الأكثر تميزاً هي **{best_school['المدرسة']}** بمتوسط درجات **{best_school['متوسط الدرجات']:.2f}%**.")
         st.write(f"إجمالي عدد الطلاب المسجلين في النظام: **{len(df)}** طالب.")
-       # --- القسم الثالث: تحليل الذكاء الاصطناعي للمدارس 
-def create_certificate(student_name, score, rank):
-    pdf = FPDF(orientation='L', unit='mm', format='A4')
-    pdf.add_page()
-    # إطار الشهادة
-    pdf.set_line_width(2)
-    pdf.rect(10, 10, 277, 190) 
-    
-    # النص (ملاحظة: FPDF تحتاج خطوط تدعم العربية أو كتابة بالإنجليزية حالياً)
-    pdf.set_font('Arial', 'B', 30)
-    pdf.cell(0, 40, 'CERTIFICATE OF EXCELLENCE', ln=True, align='C')
-    pdf.set_font('Arial', '', 20)
-    pdf.cell(0, 20, 'This is to certify that', ln=True, align='C')
-    pdf.set_font('Arial', 'B', 25)
-    pdf.cell(0, 20, student_name, ln=True, align='C')
-    pdf.set_font('Arial', '', 18)
-    text = f"Has achieved Rank #{rank} with a total score of {score}%"
-    pdf.cell(0, 20, text, ln=True, align='C')
-    # تحويل الـ PDF إلى Bytes ليتسنى تحميله
-    return pdf.output(dest='S').encode('latin-1')
-    
+       
     else:
     st.warning("بانتظار رفع ملف البيانات لبدء التحليل...")
