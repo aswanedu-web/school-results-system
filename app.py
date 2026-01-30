@@ -17,9 +17,6 @@ if st.button('تحديث البيانات الآن 🔄'):
 st.set_page_config(page_title="نظام تحليل النتائج الذكي", layout="wide")
 
     # حساب المجموع والنسبة (تلقائياً)
-      df['المجموع'] = df[subject_cols].sum(axis=1)
-    df['النسبة'] = (df['المجموع'] / (len(subject_cols) * 100)) * 100
-
     # --- القسم الأول: البحث برقم الجلوس ---
     st.header("🔍 البحث عن نتيجة طالب")
     search_id = st.number_input("أدخل رقم الجلوس", min_value=0, step=1)
