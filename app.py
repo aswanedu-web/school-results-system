@@ -1,24 +1,30 @@
 import streamlit as st
-from streamlit_gsheets import GSheetsConnection
+import pandas as pd
+import plotly.express as px
 
-# إعداد الاتصال بجوجل شيت
-url = "https://docs.google.com/spreadsheets/d/1VYDWk4rU71gX85j6KYHhvhRjCLEb4OOMc16Rm2cw4mc/edit?usp=sharing"
-
-conn = st.connection("gsheets", type=GSheetsConnection)
-
-# قراءة البيانات مباشرة
-df = conn.read(spreadsheet=url)
-
-# إخفاء خيار رفع الملف اليدوي واستبداله بالتحديث التلقائي
-if st.button('تحديث البيانات الآن 🔄'):
-    st.cache_data.clear()
-    st.rerun()
 # إعدادات الصفحة
 st.set_page_config(page_title="نظام تحليل النتائج الذكي", layout="wide")
 
+st.title("📊 نظام عرض وتحليل نتائج الطلاب بالذكاء الاصطناعي")
+st.markdown("قم برفع ملف Excel يحتوي على درجات الطلاب للحصول على التحليل فوراً")
+
+# 1. رفع الملف
+uploaded_file = st.sidebar.file_uploader("اختر ملف Excel", type=["xlsx", "csv"])
+
+if uploaded_file:
+    # قراءة البيانات
+    if uploaded_file.name.endswith('.csv'):
+        df = pd.read_csv(uploaded_file)
+    else:
+        df = pd.read_excel(uploaded_file)
+
     # حساب المجموع والنسبة (تلقائياً)
+    subject_cols = df.select_dtypes(include=['number']).columns.drop(['رقم_الجلوس'], errors='ignore')
+    df['المجموع'] = df[subject_cols].sum(axis=1)
+    df['النسبة'] = (df['المجموع'] / (len(subject_cols) * 100)) * 100
+
     # --- القسم الأول: البحث برقم الجلوس ---
-  #  st.header("🔍 البحث عن نتيجة طالب")
+    st.header("🔍 البحث عن نتيجة طالب")
     search_id = st.number_input("أدخل رقم الجلوس", min_value=0, step=1)
     
     if search_id in df['رقم_الجلوس'].values:
