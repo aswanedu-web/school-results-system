@@ -96,7 +96,6 @@ selected_student = st.selectbox("اختر طالب لإصدار شهادته", t
 if selected_student:
     row = top_students[top_students['الاسم'] == selected_student].iloc[0]
     rank = top_students.index.get_loc(row.name) + 1
-    pdf_data = create_certificate(row['الاسم'], round(row['النسبة'], 2), rank)
     st.download_button(
         label=f"تحميل شهادة {selected_student}",
         data=pdf_data,
