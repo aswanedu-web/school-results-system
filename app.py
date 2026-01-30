@@ -69,12 +69,7 @@ if uploaded_file:
         st.subheader("تحليل ذكي:")
         st.info(f"المدرسة الأكثر تميزاً هي **{best_school['المدرسة']}** بمتوسط درجات **{best_school['متوسط الدرجات']:.2f}%**.")
         st.write(f"إجمالي عدد الطلاب المسجلين في النظام: **{len(df)}** طالب.")
-       # --- القسم الثالث: تحليل الذكاء الاصطناعي للمدارس ---
-    if student_data['النسبة'] >= 90:
-    st.balloons() 
-    st.write(f"🎉 مذهل يا {student_data['الاسم']}! أنت من ضمن نخبة الطلاب لهذا العام.")
-from fpdf import FPDF
-import io
+       # --- القسم الثالث: تحليل الذكاء الاصطناعي للمدارس 
 def create_certificate(student_name, score, rank):
     pdf = FPDF(orientation='L', unit='mm', format='A4')
     pdf.add_page()
