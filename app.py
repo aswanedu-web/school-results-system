@@ -33,7 +33,7 @@ if uploaded_file:
         col1.metric("الاسم", student_data['الاسم'])
         col2.metric("المجموع", f"{student_data['المجموع']}")
         col3.metric("النسبة المئوية", f"{student_data['النسبة']:.2f}%")
-        st.success(f"حالة الطالب: {'ناجح' if student_data['النسبة'] >= 50 else 'راسب'}")
+        st.success(f"حالة الطالب: {'ناجح' if student_data['النسبة'] >= 75 else 'راسب'}")
     else:
         st.info("الرجاء إدخال رقم جلوس صحيح.")
 
