@@ -70,7 +70,6 @@ if uploaded_file:
         st.info(f"المدرسة الأكثر تميزاً هي **{best_school['المدرسة']}** بمتوسط درجات **{best_school['متوسط الدرجات']:.2f}%**.")
         st.write(f"إجمالي عدد الطلاب المسجلين في النظام: **{len(df)}** طالب.")
         if student_data['النسبة'] >= 90:
-    # تأثير بالونات احتفالية
     st.balloons() 
     st.write(f"🎉 مذهل يا {student_data['الاسم']}! أنت من ضمن نخبة الطلاب لهذا العام.")
 from fpdf import FPDF
