@@ -21,7 +21,7 @@ if uploaded_file:
     # حساب المجموع والنسبة (تلقائياً)
     subject_cols = df.select_dtypes(include=['number']).columns.drop(['رقم_الجلوس'], errors='ignore')
     df['المجموع'] = df[subject_cols].sum(axis=1)
-    df['النسبة'] = (df['المجموع'] / 280 * 100)) * 100
+ df['النسبة'] = (df['المجموع'] / (len(subject_cols) * 100)) * 100
 
     # --- القسم الأول: البحث برقم الجلوس ---
     st.header("🔍 البحث عن نتيجة طالب")
@@ -69,6 +69,52 @@ if uploaded_file:
         st.subheader("تحليل ذكي:")
         st.info(f"المدرسة الأكثر تميزاً هي **{best_school['المدرسة']}** بمتوسط درجات **{best_school['متوسط الدرجات']:.2f}%**.")
         st.write(f"إجمالي عدد الطلاب المسجلين في النظام: **{len(df)}** طالب.")
+        if student_data['النسبة'] >= 90:
+    st.balloons() # تأثير بالونات احتفالية
+    st.write(f"🎉 مذهل يا {student_data['الاسم']}! أنت من ضمن نخبة الطلاب لهذا العام.")
+from fpdf import FPDF
+import io
 
+def create_certificate(student_name, score, rank):
+    pdf = FPDF(orientation='L', unit='mm', format='A4')
+    pdf.add_page()
+    
+    # إطار الشهادة
+    pdf.set_line_width(2)
+    pdf.rect(10, 10, 277, 190) 
+    
+    # النص (ملاحظة: FPDF تحتاج خطوط تدعم العربية أو كتابة بالإنجليزية حالياً)
+    pdf.set_font('Arial', 'B', 30)
+    pdf.cell(0, 40, 'CERTIFICATE OF EXCELLENCE', ln=True, align='C')
+    
+    pdf.set_font('Arial', '', 20)
+    pdf.cell(0, 20, 'This is to certify that', ln=True, align='C')
+    
+    pdf.set_font('Arial', 'B', 25)
+    pdf.cell(0, 20, student_name, ln=True, align='C')
+    
+    pdf.set_font('Arial', '', 18)
+    text = f"Has achieved Rank #{rank} with a total score of {score}%"
+    pdf.cell(0, 20, text, ln=True, align='C')
+    
+    # تحويل الـ PDF إلى Bytes ليتسنى تحميله
+    return pdf.output(dest='S').encode('latin-1')
+
+# --- داخل جزء عرض الأوائل في Streamlit ---
+st.subheader("🖨️ طباعة شهادات المتفوقين")
+selected_student = st.selectbox("اختر طالب لإصدار شهادته", top_students['الاسم'])
+
+if selected_student:
+    row = top_students[top_students['الاسم'] == selected_student].iloc[0]
+    rank = top_students.index.get_loc(row.name) + 1
+    
+    pdf_data = create_certificate(row['الاسم'], round(row['النسبة'], 2), rank)
+    
+    st.download_button(
+        label=f"تحميل شهادة {selected_student}",
+        data=pdf_data,
+        file_name=f"certificate_{selected_student}.pdf",
+        mime="application/pdf"
+    )
 else:
     st.warning("بانتظار رفع ملف البيانات لبدء التحليل...")
