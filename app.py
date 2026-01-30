@@ -21,7 +21,7 @@ if uploaded_file:
     # حساب المجموع والنسبة (تلقائياً)
     subject_cols = df.select_dtypes(include=['number']).columns.drop(['رقم_الجلوس'], errors='ignore')
     df['المجموع'] = df[subject_cols].sum(axis=1)
-    df['النسبة'] = (df['المجموع'] / (len(subject_cols) * 100)) * 100
+    df['النسبة'] = (df['المجموع'] / (len(subject_cols) * 140)) * 140
 
     # --- القسم الأول: البحث برقم الجلوس ---
     st.header("🔍 البحث عن نتيجة طالب")
